@@ -4,13 +4,16 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
 
-                <?= $post ?>
+                <h1>
+                    <?= h($post['title']) ?>
+                </h1>
+                <?= $post['content'] ?>
 
             </div>
 
-            <?php require 'incs/sidebar.php' ?>
+
         </div>
     </div>
 
