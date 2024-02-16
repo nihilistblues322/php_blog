@@ -1,6 +1,6 @@
 <?php
 
-require_once CORE . '/classes/Validator.php';
+use myfrm\Validator;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -21,13 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ],
         'content' => [
             'required' => true,
-            'min' => 100,
+            'min' => 10,
 
         ],
 
     ]);
 
-    $errors = [];
+    if ($validation->hasErrors()) {
+        print_r($validation->getErrors());
+    } else {
+        echo 'Succes';
+    }
+
+
+
     if (empty($errors)) {
         if (
             $db->query(
@@ -43,6 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // redirect('/posts/create');
     }
 }
-
 $title = "My Blog :: New Post";
 require_once VIEWS . '/post-create.tpl.php';

@@ -7,7 +7,7 @@ define("WWW", ROOT . '/public');
 
 define("CONFIG", ROOT . '/config');
 
-define("CORE", ROOT . '/core');
+define("CORE", ROOT . '/vendor/myfrm/core');
 
 define("APP", ROOT . '/app');
 
