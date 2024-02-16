@@ -27,27 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     ]);
 
-    if ($validation->hasErrors()) {
-        print_r($validation->getErrors());
-    } else {
-        echo 'Succes';
-    }
-
-
-
-    if (empty($errors)) {
+    if (!$validation->hasErrors()) {
         if (
             $db->query(
                 'INSERT INTO posts (`title`, `content`, `excerpt`) VALUES (:title, :content, :excerpt)',
                 $data
             )
         ) {
-            echo 'ok';
+            $_SESSION['success'] = 'ok';
         } else {
-            echo 'db error';
+            $_SESSION['error'] = 'Error';
         }
-
-        // redirect('/posts/create');
+        redirect();
     }
 }
 $title = "My Blog :: New Post";
