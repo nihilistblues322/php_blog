@@ -52,3 +52,16 @@ function redirect($url = '')
     header("Location:{$redirect}");
     exit;
 }
+
+function getAlerts()
+{
+    if (!empty($_SESSION['success'])) {
+        require_once VIEWS . '/incs/alert_success.php';
+        unset($_SESSION['success']);
+    };
+    if (!empty($_SESSION['error'])) {
+        require_once VIEWS . '/incs/alert_error.php';
+        unset($_SESSION['error']);
+    };
+}
+

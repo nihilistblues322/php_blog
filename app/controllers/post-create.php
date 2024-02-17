@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $data
             )
         ) {
-            $_SESSION['success'] = 'ok';
+            $_SESSION['success'] = 'SUCCESS';
         } else {
             $_SESSION['error'] = 'Error';
         }
