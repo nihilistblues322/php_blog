@@ -3,10 +3,7 @@
 use myfrm\Validator;
 
 
-global $db;
-/**
- * @var \myfrm\Db $db
- */
+
 
 $fillable = ['title', 'content', 'excerpt'];
 $data = load($fillable);
@@ -42,7 +39,7 @@ $validation = $validator->validate($data, [
 ]);
 
 if (!$validation->hasErrors()) {
-    if ($db->query("INSERT INTO posts (`title`, `content`, `excerpt`) VALUES (:title, :content, :excerpt)", $data)) {
+    if (db()->query("INSERT INTO posts (`title`, `content`, `excerpt`) VALUES (:title, :content, :excerpt)", $data)) {
         $_SESSION['success'] = 'OK';
     } else {
         $_SESSION['error'] = 'DB Error';
