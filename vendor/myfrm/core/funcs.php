@@ -1,5 +1,8 @@
 <?php
 
+use myfrm\Db;
+use myfrm\App;
+
 function dump($data)
 {
     echo "<pre>";
@@ -71,7 +74,12 @@ function get_alerts()
     }
 }
 
-function db(): \myfrm\Db
+function db(): Db
 {
-    return \myfrm\App::get(\myfrm\Db::class);
+    return App::get(Db::class);
+}
+
+function check_auth()
+{
+    return isset($_SESSION['user']);
 }

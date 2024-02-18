@@ -1,9 +1,7 @@
 <?php
 require VIEWS . '/incs/header.php';
 
-/**
- * @var \myfrm\Validator $validation
- */
+
 ?>
 
 <main class="main py-3">
