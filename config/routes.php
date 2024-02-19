@@ -1,5 +1,10 @@
 <?php
 
+const MIDDLEWARE = [
+    'auth' => myfrm\middleware\Auth::class,
+    'guest' => myfrm\middleware\Guest::class,
+];
+
 // Posts
 $router->get('', 'posts/index.php');
 $router->get('posts', 'posts/show.php');
