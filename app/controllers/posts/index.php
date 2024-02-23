@@ -1,23 +1,21 @@
 <?php
 
-use myfrm\App;
 use myfrm\Db;
+use myfrm\App;
+use myfrm\Pagination;
 
 $title = 'My Blog :: Home';
 
 $db = App::get(Db::class);
 
-$per_page = 5;
-$total = db()->query("SELECT COUNT(*) FROM posts")->getColumn();
-$pages_cnt = ceil($total / $per_page);
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-if ($page < 1) {
-    $page = 1;
-}
-if ($page > $pages_cnt) {
-    $page = $pages_cnt;
-}
-$start = ($page - 1) * $per_page;
+
+
+$page = $_GET['page'] ?? 1;
+$per_page = 6;
+$total = $db->query("SELECT COUNT(*) FROM posts")->getColumn();
+$pagination = new Pagination((int)$page, $per_page, $total);
+
+$start = $pagination->getStart();
 
 $posts = $db->query("SELECT * FROM posts ORDER BY id DESC LIMIT $start, $per_page")->findAll();
 $recent_posts = $db->query("SELECT * FROM posts ORDER BY id DESC LIMIT 3")->findAll();
