@@ -7,7 +7,7 @@
             <div class="col-md-6 offset-md-3">
 
                 <h3>Register</h3>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Enter name</label>
@@ -25,6 +25,10 @@
                         <?=isset($validation) ? $validation->listErrors('password') : '' ?>
                     </div>
                     <div class="mb-3">
+                        <label for="avatar" class="form-label">Avatar</label>
+                        <input name="avatar" class="form-control" type="file" id="avatar">
+                    </div>
+                    <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
@@ -34,4 +38,3 @@
 </main>
 
 <?php require VIEWS . '/incs/footer.php' ?>
-

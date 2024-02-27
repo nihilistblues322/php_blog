@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace myfrm\middleware;
 
-class Guest 
+
+class Guest
 {
     public function handle()
     {
@@ -10,5 +11,5 @@ class Guest
             redirect('/');
         }
     }
-    
+
 }
