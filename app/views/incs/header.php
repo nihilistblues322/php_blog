@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'TITLE' ?></title>
-    <base href="<?= PATH ?>/">
+    <title><?=$title ?? 'TITLE' ?></title>
+    <base href="<?=PATH ?>/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/assets/main.css">
     <link rel="icon" href="img/favicon.ico">
@@ -39,7 +39,7 @@
                         <ul class="d-flex text-white align-items-center list-unstyled m-0 gap-3">
 
                             <?php if (check_auth()): ?>
-                                <li><?= $_SESSION['user']['name']; ?></li>
+                                <li><?=$_SESSION['user']['name']; ?></li>
                                 <li><a class="nav-link" href="logout">Logout</a></li>
                             <?php else: ?>
                                 <li><a class="nav-link" href="register">Register</a></li>
@@ -53,3 +53,4 @@
         </header>
 
         <?php get_alerts(); ?>
+

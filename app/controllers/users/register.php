@@ -1,7 +1,7 @@
 <?php
 
-use myfrm\Db;
 use myfrm\App;
+use myfrm\Db;
 use myfrm\Validator;
 
 $title = "My Blog :: Register";
@@ -38,10 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $_SESSION['error'] = 'DB Error';
         }
-        redirect('/');
-    } 
+        redirect(PATH);
+    }
 
 }
 
 require_once VIEWS . '/users/register.tpl.php';
-
