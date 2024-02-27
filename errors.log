@@ -1,2 +1,0 @@
-[2024-02-24 10:44:14] Db error:  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'test.users2' doesn't exist
-[2024-02-27 11:14:32] Db error:  SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':email = 'cejevi@mailinator.com'' at line 1
