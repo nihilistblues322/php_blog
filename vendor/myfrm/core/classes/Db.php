@@ -53,6 +53,7 @@ final class Db
             $this->stmt = $this->connection->prepare($query);
             $this->stmt->execute($params);
         } catch (PDOException $e) {
+            error_log("[" . date('Y-m-d H:i:s') . "] Db error:  {$e->getMessage()}" . PHP_EOL, 3, ERROR_LOG_FILE);
             return false;
         }
         return $this;

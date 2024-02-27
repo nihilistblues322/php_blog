@@ -6,8 +6,6 @@
         <div class="row">
             <div class="col-md-8">
 
-
-
                 <?php foreach ($posts as $post) : ?>
                     <div class="card mb-3">
                         <div class="card-body">
@@ -17,12 +15,10 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-
                 <hr>
                 <?php echo $pagination; ?>
 
             </div>
-
             <?php require VIEWS . '/incs/sidebar.php' ?>
         </div>
     </div>
