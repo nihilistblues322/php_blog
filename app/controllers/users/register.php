@@ -34,6 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'required' => true,
             'min' => 6,
         ],
+        'avatar' => [
+            'required' => true,
+            'ext' => 'jpeg|gif',
+            'size' => 1 * 1024 * 1024,
+
+             
+        ]
 
     ]);
     

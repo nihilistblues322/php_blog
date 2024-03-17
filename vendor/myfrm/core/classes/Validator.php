@@ -9,7 +9,7 @@ class Validator
 
     protected $errors = [];
     protected $data_items;
-    protected $rules_list = ['required', 'min', 'max', 'email', 'match', 'unique'];
+    protected $rules_list = ['required', 'min', 'max', 'email', 'match', 'unique', 'ext', 'size'];
     protected $messages = [
         'required' => 'The :fieldname: field is required',
         'min' => 'The :fieldname: field must be a minimun :rulevalue: characters',
@@ -17,13 +17,15 @@ class Validator
         'email' => 'Not valid email',
         'match' => 'The :fieldname: field must match :rulevalue: field',
         'unique' => 'The :fieldname: is already in use',
+        'ext' => 'File :fieldname: does not have valid extension, allowed extensions: :rulevalue:',
+        'size' => 'File :fieldname: does not have valid size, allowed size: :rulevalue: bytes',
     ];
 
     public function validate($data = [], $rules = [])
     {
         $this->data_items = $data;
         foreach ($data as $fieldname => $value) {
-            if (isset($rules[$fieldname])) {
+            if (isset ($rules[$fieldname])) {
                 $this->check([
                     'fieldname' => $fieldname,
                     'value' => $value,
@@ -64,13 +66,13 @@ class Validator
 
     public function hasErrors()
     {
-        return !empty($this->errors);
+        return !empty ($this->errors);
     }
 
     public function listErrors($fieldname)
     {
         $output = '';
-        if (isset($this->errors[$fieldname])) {
+        if (isset ($this->errors[$fieldname])) {
             $output .= "<div class='invalid-feedback d-block'><ul class='list-unstyled'>";
             foreach ($this->errors[$fieldname] as $error) {
                 $output .= "<li>{$error}</li>";
@@ -82,7 +84,7 @@ class Validator
 
     protected function required($value, $rule_value)
     {
-        return !empty(trim($value));
+        return !empty ($value);
     }
 
     protected function min($value, $rule_value)
@@ -109,5 +111,24 @@ class Validator
     {
         $data = explode(':', $rule_value);
         return (!db()->query("SELECT {$data[1]} FROM {$data[0]} WHERE {$data[1]} = ?", [$value])->getColumn());
+    }
+    protected function ext($value, $rule_value)
+    {
+        if (empty ($value['name'])) {
+            return true;
+        }
+        $file_ext = get_file_ext($value['name']);
+        $allowed_ext = explode('|', $rule_value);
+        return in_array($file_ext, $allowed_ext);
+
+    }
+    protected function size($value, $rule_value)
+    {
+        if (empty ($value['size'])) {
+            return true;
+        }
+
+        return $value['size'] <= $rule_value;
+
     }
 }

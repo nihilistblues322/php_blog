@@ -37,7 +37,7 @@ function load($fillable = [], $post = true)
     $load_data = $post ? $_POST : $_GET;
     $data = [];
     foreach ($fillable as $name) {
-        if (isset($load_data[$name])) {
+        if (isset ($load_data[$name])) {
             if (!is_array($load_data[$name])) {
                 $data[$name] = trim($load_data[$name]);
             } else {
@@ -52,7 +52,7 @@ function load($fillable = [], $post = true)
 
 function old($fieldname)
 {
-    return isset($_POST[$fieldname]) ? h($_POST[$fieldname]) : '';
+    return isset ($_POST[$fieldname]) ? h($_POST[$fieldname]) : '';
 }
 
 function h($str)
@@ -65,7 +65,7 @@ function redirect($url = '')
     if ($url) {
         $redirect = $url;
     } else {
-        $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
+        $redirect = isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
     }
     header("Location: {$redirect}");
     die;
@@ -73,11 +73,11 @@ function redirect($url = '')
 
 function get_alerts()
 {
-    if (!empty($_SESSION['success'])) {
+    if (!empty ($_SESSION['success'])) {
         require_once VIEWS . '/incs/alert_success.php';
         unset($_SESSION['success']);
     }
-    if (!empty($_SESSION['error'])) {
+    if (!empty ($_SESSION['error'])) {
         require_once VIEWS . '/incs/alert_error.php';
         unset($_SESSION['error']);
     }
@@ -90,5 +90,11 @@ function db(): Db
 
 function check_auth()
 {
-    return isset($_SESSION['user']);
+    return isset ($_SESSION['user']);
+}
+
+function get_file_ext($filename)
+{
+    $filename = explode('.', $filename);
+    return end($filename);
 }
