@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = load(['name', 'email', 'password']);
 
 
-    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
+    if (isset ($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
         $data['avatar'] = $_FILES['avatar'];
     } else {
         $data['avatar'] = [];
@@ -36,17 +36,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ],
         'avatar' => [
             'required' => true,
-            'ext' => 'jpeg|gif',
+            'ext' => 'jpg|gif',
             'size' => 1 * 1024 * 1024,
 
-             
+
         ]
 
     ]);
-    
+
     if (!$validation->hasErrors()) {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        if (db()->query("INSERT INTO users (`name`, `email`, `password`) VALUES (:name, :email, :password)", $data)) {
+        if (db()->query("INSERT INTO users (`name`, `email`, `password`) VALUES (?,?,?)", [$data['name'], $data['email'], $data['password']])) {
+
+
+            if (!empty ($data['avatar']['name'])) {
+                $id = db()->getInsertId();
+
+                $file_ext = get_file_ext($data['avatar']['name']);
+                $dir = '/avatars/' . date('Y') . '/' . date('m') . '/' . date('d');
+                if (!is_dir(UPLOADS . $dir)) {
+                    mkdir(UPLOADS . $dir, 0777, true);
+                }
+                $file_path = UPLOADS . "{$dir}/avatar-{$id}.{$file_ext}";
+                $file_url = "/uploads{$dir}/avatar-{$id}.{$file_ext}";
+
+                if (move_uploaded_file($data['avatar']['tmp_name'], $file_path)) {
+                    db()->query("UPDATE users SET avatar = ? WHERE id = ?", [$file_url, $id]);
+                } else {
+                    error_log("[" . date('Y-m-d H:i:s') . "] File upload error" . PHP_EOL, 3, ERROR_LOG_FILE);
+
+                }
+            }
+
             $_SESSION['success'] = 'Вы успешно зарегистрировались!';
         } else {
             $_SESSION['error'] = 'DB Error';

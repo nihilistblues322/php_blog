@@ -8,5 +8,7 @@ define("APP", ROOT . '/app');
 define("CONTROLLERS", APP . '/controllers');
 define("VIEWS", APP . '/views');
 define("PATH", 'http://test.loc');
-define("LOGIN_PAGE", PATH .  '/login');
+define("LOGIN_PAGE", PATH . '/login');
 define("ERROR_LOG_FILE", ROOT . '/errors.log');
+
+const UPLOADS = WWW . '/uploads';
